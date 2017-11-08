@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { cardsArray } from '../card_data.js'
+import { cardsArray } from '../../card_data.js'
 import CardList from './CardList'
 
 class CardContainer extends Component{
@@ -96,7 +95,7 @@ class CardContainer extends Component{
 
   render(){
     return(
-      <div>
+      <div className="cardContainer">
         <CardList onCardClick={this.onCardClick} cards={this.state.activeCards} />
       </div>
     )
@@ -111,8 +110,5 @@ CardContainer.defaultProps = {
 
 }
 
-CardContainer.propTypes = {
-
-}
 
 export default CardContainer;
