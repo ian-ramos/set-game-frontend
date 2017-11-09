@@ -18,26 +18,22 @@ class CardContainer extends Component{
   }
 
   drawTo12 = () => {
-    if(this.state.cards.length !== 0){
-      for (let i = this.state.activeCards.length; i < 12; i++) {
-        this.state.activeCards.push(this.drawCard())
-      }
-      while(!this.hasGoodSet() && this.state.cards.length !== 0){ //seconds check for the teeeeny chance that there isn't a set in 15 cards. Keeps drawing as long as there are still cards and there isn't a good set
-        this.draw3More() //draws 3 more if there isn't any good sets
-      }
-      this.setState({activeCards: this.state.activeCards})
-    } else {
-      if(!this.hasGoodSet()){ //no cards left to draw and no good set
-        console.log("Game Over");
-      }
+    for (let i = this.state.activeCards.length; i < 12; i++) {
+      this.state.activeCards.push(this.drawCard())
+    }
+    this.setState({activeCards: this.state.activeCards})
+  }
+
+  gameLogic = () => {
+    while(!this.hasGoodSet() && this.state.cards.length !== 0){ //seconds check for the teeeeny chance that there isn't a set in 15 cards. Keeps drawing as long as there are still cards and there isn't a good set
+      this.draw3More()  //draws 3 more if there isn't any good sets
     }
   }
 
-  draw3More = () => {
-    for (let i = 0; i < 3; i++) {
-      console.log("drawing three more");
-      this.state.activeCards.push(this.drawCard())
-    }
+  draw3More = () => { // altered so that it adds cards to end of list
+    this.state.activeCards.splice(12, 0, this.drawCard())
+    this.state.activeCards.splice(8, 0, this.drawCard())
+    this.state.activeCards.splice(4, 0, this.drawCard())
   }
 
   onCardClick = (card) => {
@@ -80,8 +76,15 @@ class CardContainer extends Component{
   }
 
   removeClickedCards = () => { //called once clickedCards.length === 3
-    this.state.activeCards = this.state.activeCards.filter(card => !this.state.clickedCards.includes(card))
-    this.drawTo12()
+    if (this.state.activeCards.length === 12){ //replace cards at its index so the elements don't shift
+      this.state.clickedCards.forEach(clickedCard => {
+        const idx = this.state.activeCards.indexOf(clickedCard)
+        this.state.activeCards.splice(idx, 1, this.drawCard())
+      })
+    } else { //if the length isn't 12, then you're just removing the clicked cards from the activeCards and letting them shift 
+      this.state.activeCards = this.state.activeCards.filter(card => !this.state.clickedCards.includes(card))
+    }
+    this.gameLogic() //draws 3 more if there isn't a good set
   }
 
   clickedCardLogic = () => {
@@ -112,6 +115,7 @@ class CardContainer extends Component{
 
   componentDidMount = () => {
     this.drawTo12()
+    this.gameLogic()
   }
 }
 

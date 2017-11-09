@@ -8,7 +8,7 @@ const Card = (props) => {
   const imgBorder = props.card.clicked ? props.card.color : "none"
   return (
   <div onClick={handleClick} >
-    <img style={{border: `5px solid ${props.card.clicked ? props.card.color : 'white'}`}} src={require(`../../cardImages/${imgSrc}.jpg`)} />
+    <img style={{border: `5px solid ${props.card.clicked ? 'yellow' : 'white'}`}} src={require(`../../cardImages/${imgSrc}.jpg`)} />
 
   </div>
   )
