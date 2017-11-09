@@ -44,6 +44,7 @@ class CardContainer extends Component{
       if(this.state.clickedCards.length >= 3){ //checks if set is good then removes cards and draws new set
         if(this.clickedCardLogic()){
           this.removeClickedCards() //removes clickedCards from page
+          this.props.onScore()
         }
         this.state.clickedCards.forEach(card => card.clicked = false) //doesn't really matter for removedCards, but if choose a set that's not a legit set, this will set all their properties back to unclicked
         this.setState({clickedCards: []})
@@ -81,7 +82,7 @@ class CardContainer extends Component{
         const idx = this.state.activeCards.indexOf(clickedCard)
         this.state.activeCards.splice(idx, 1, this.drawCard())
       })
-    } else { //if the length isn't 12, then you're just removing the clicked cards from the activeCards and letting them shift 
+    } else { //if the length isn't 12, then you're just removing the clicked cards from the activeCards and letting them shift
       this.state.activeCards = this.state.activeCards.filter(card => !this.state.clickedCards.includes(card))
     }
     this.gameLogic() //draws 3 more if there isn't a good set
