@@ -16,7 +16,7 @@ for (let j=0; j<3; j++){
     let shape
     switch(k){
       case 0:
-        shape = 'oval'
+        shape = 'cylinder'
         break;
       case 1:
         shape = 'diamond'
@@ -47,7 +47,7 @@ for (let j=0; j<3; j++){
 }
 
 const cardsArray = rawCardsArray.map(array => {
-  return {color: array[0], shape: array[1], fill:array[2], count:array[3]}
+  return {color: array[0], shape: array[1], fill:array[2], count:array[3], clicked: false}
 })
 
 export {cardsArray}

@@ -42,14 +42,23 @@ class CardContainer extends Component{
 
   onCardClick = (card) => {
     if (!this.state.clickedCards.includes(card)){
+      card.clicked = true
       this.state.clickedCards.push(card)
-    }
-    if(this.state.clickedCards.length >= 3){ //checks if set is good then removes cards and draws new set
-      if(this.clickedCardLogic()){
-        this.removeClickedCards()
+      this.forceUpdate() //force update to page re-renders b/c we want the borders to re-render once clicked, but we're already setting state below
+      if(this.state.clickedCards.length >= 3){ //checks if set is good then removes cards and draws new set
+        if(this.clickedCardLogic()){
+          this.removeClickedCards() //removes clickedCards from page
+        }
+        this.state.clickedCards.forEach(card => card.clicked = false) //doesn't really matter for removedCards, but if choose a set that's not a legit set, this will set all their properties back to unclicked
+        this.setState({clickedCards: []})
       }
-      this.setState({clickedCards: []})
+    } else {
+      const idx = this.state.clickedCards.indexOf(card) //removes card from clickedCards array if you unclick it
+      this.state.clickedCards.splice(idx, 1)
+      card.clicked = false
+      this.forceUpdate()
     }
+
   }
 
   hasGoodSet = () => { //checks to make sure there's at least 1 good set in the active cards
