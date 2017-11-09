@@ -6,11 +6,12 @@ const Card = (props) => {
   }
   return (
   <div onClick={handleClick}>
+    <img src={require("../../cardImages/red-diamond-empty-1.jpg")} />
     {props.number} -
-    {props.card.shape}
     {props.card.color}
-    {props.card.count}
+    {props.card.shape}
     {props.card.fill}
+    {props.card.count}
   </div>
   )
 }
