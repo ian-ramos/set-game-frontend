@@ -11,6 +11,8 @@ for (let j=0; j<3; j++){
     case 2:
       color= 'purple'
       break;
+    default:
+      color = 'not gonna happen'
     }
   for(let k=0;k<3;k++){
     let shape
@@ -24,6 +26,8 @@ for (let j=0; j<3; j++){
       case 2:
         shape = 'squiggly'
         break;
+      default:
+        shape = 'not gonna happen'
       }
     for(let l=0;l<3;l++){
       let fill
@@ -37,6 +41,8 @@ for (let j=0; j<3; j++){
         case 2:
           fill = 'half'
           break;
+        default:
+          fill = 'not gonna happen'
         }
 
       for(let m =0; m < 3; m++){

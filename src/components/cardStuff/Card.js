@@ -5,10 +5,9 @@ const Card = (props) => {
     props.onCardClick(props.card)
   }
   const imgSrc = `${props.card.color}-${props.card.shape}-${props.card.fill}-${props.card.count}`
-  const imgBorder = props.card.clicked ? props.card.color : "none"
   return (
   <div onClick={handleClick} >
-    <img style={{border: `5px solid ${props.card.clicked ? 'yellow' : 'white'}`}} src={require(`../../cardImages/${imgSrc}.jpg`)} />
+    <img style={{border: `5px solid ${props.card.clicked ? 'yellow' : 'white'}`}} src={require(`../../cardImages/${imgSrc}.jpg`)} alt={imgSrc}/>
 
   </div>
   )

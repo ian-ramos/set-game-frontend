@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react';
 
 const CardList = (props) => {
   const numOfCols = props.cards.length / 3 //usually => 4, sometimes => 5
-  const cardsArr = props.cards.map((card, idx) =><Grid.Column><Card key={idx} card={card} onCardClick={props.onCardClick} number={idx} /></Grid.Column> )
+  const cardsArr = props.cards.map((card, idx) =><Grid.Column key={idx*10}><Card key={idx} card={card} onCardClick={props.onCardClick} number={idx} /></Grid.Column> )
 
   const formattedCardsArr = []
 

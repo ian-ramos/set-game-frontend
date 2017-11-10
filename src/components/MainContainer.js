@@ -4,13 +4,16 @@ import NavBar from './NavBar';
 import Timer from './Timer';
 import UserContainer from './userStuff/UserContainer';
 import StartButton from './StartButton';
+import LoginForm from './LoginForm';
+import { loginUser } from '../services/api'
 
 class MainContainer extends Component{
 
   state = {
     time: 11,
     gameActive: false,
-    userScore: 0
+    current: 0,
+    user: {}
   }
 
   decrementTime = () => {
@@ -25,20 +28,26 @@ class MainContainer extends Component{
   }
 
   handleStart = () => {
-    this.state.userScore = 0
+    this.state.current = 0
     this.state.time = 11
     this.decrementTime()
   }
 
   addScore = () => {
-    this.setState({userScore: this.state.userScore + 1})
+    this.setState({current: this.state.current + 1})
+  }
+
+  handleLogin = (userObj) => {
+    loginUser(userObj)
+      .then(json => console.log(json))
   }
 
   render(){
     return(
       <div className="mainContainer">
         <NavBar />
-        <UserContainer score={this.state.userScore}/>
+        <LoginForm onLogin={this.handleLogin} />
+        <UserContainer score={this.state.current}/>
         <StartButton onStart={this.handleStart}/>
         <CardContainer onScore={this.addScore}/>
         {this.state.gameActive === false ? null : <Timer time={this.state.time} />}
