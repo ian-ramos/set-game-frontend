@@ -5,7 +5,7 @@ import CardList from './CardList'
 class CardContainer extends Component{
 
   state = {
-    cards: cardsArray,
+    cards: [...cardsArray],
     activeCards: [],
     clickedCards: []
   }
@@ -59,6 +59,7 @@ class CardContainer extends Component{
   }
 
   hasGoodSet = () => { //checks to make sure there's at least 1 good set in the active cards
+    console.log(this.state.activeCards);
     for(let i=0; i < this.state.activeCards.length-2; i++){
       for(let j=i+1; j < this.state.activeCards.length-1; j++){
         for(let k=j+1; k < this.state.activeCards.length; k++){
@@ -117,6 +118,10 @@ class CardContainer extends Component{
   componentDidMount = () => {
     this.drawTo12()
     this.gameLogic()
+  }
+
+  componentWillUnmount = () => {
+    console.log("Card Container Unmounting");
   }
 }
 

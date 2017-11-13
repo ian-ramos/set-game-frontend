@@ -4,11 +4,7 @@ import './App.css';
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <MainContainer />
-      </div>
-    );
+    return (<div style={{padding: "50px"}} className="App"><MainContainer /></div>);
   }
 }
 

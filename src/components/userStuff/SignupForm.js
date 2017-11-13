@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 
-class LoginForm extends Component{
+class SignupForm extends Component{
 
   state = {
     name: "",
-    password: ""
+    password: "",
+    pwConfirmation: ""
   }
 
   handleSubmit = (ev) => {
     ev.preventDefault()
-    this.props.onLogin(this.state)
-    this.setState({name: "", password: ""})
+    this.props.onSignup(this.state)
+    this.setState({name: "", password: "", pwConfirmation: ""})
   }
 
   handleNameChange = (ev) => {
@@ -21,6 +22,10 @@ class LoginForm extends Component{
     this.setState({password: ev.target.value})
   }
 
+  handlePwConfirmationChange = (ev) => {
+    this.setState({pwConfirmation: ev.target.value})
+  }
+
   render(){
     return(
     <form onSubmit={this.handleSubmit}>
@@ -28,10 +33,12 @@ class LoginForm extends Component{
       <input type='text' value={this.state.name} onChange={this.handleNameChange} /><br />
       <label htmlFor="">Password: </label>
       <input type='password' value={this.state.password} onChange={this.handlePasswordChange} /><br />
+      <label htmlFor="">Confirm Password: </label>
+      <input type="password" value={this.state.pwConfirmation} onChange={this.handlePwConfirmationChange} /><br />
       <input type='submit' value='submit' />
     </form>
     )
   }
 }
 
-export default LoginForm
+export default SignupForm

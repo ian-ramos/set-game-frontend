@@ -1,7 +1,13 @@
 // TODO:
-//Keep cards in same place instead of shuffling
-// Timer
-// Scoring
-// Register Players / Login (Backend)
-// Multiplayer
+// Add profile page
+  // Name
+  // High Score
+  // Change PW
+  // Overall rank?
+// Add highScore page
+  // List of players by highest score
+// Clean up login
+  //
+// Clean up end-of-game (alert 'game over'? ('new high score!'?))
+// Multiplayer (Stretch)
 // Stretch: Multiplayer w/ login
