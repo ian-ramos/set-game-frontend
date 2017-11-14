@@ -43,7 +43,6 @@ export const getUserWithJwt = () => {
 }
 
 export const postHighScore = (userObj) => {
-  console.log(userObj, "from services");
   const bodyString = JSON.stringify({user: userObj})
   return fetch(`${apiUrl}/users/${userObj.id}`,{
     method: "PATCH",

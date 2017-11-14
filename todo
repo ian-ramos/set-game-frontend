@@ -1,13 +1,6 @@
 // TODO:
 // Add profile page
-  // Name
-  // High Score
   // Change PW
-  // Overall rank?
-// Add highScore page
-  // List of players by highest score
-// Clean up login
-  //
-// Clean up end-of-game (alert 'game over'? ('new high score!'?))
 // Multiplayer (Stretch)
+  //Change Multiplayer alert messages
 // Stretch: Multiplayer w/ login

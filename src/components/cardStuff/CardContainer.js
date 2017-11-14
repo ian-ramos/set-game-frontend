@@ -36,30 +36,41 @@ class CardContainer extends Component{
     this.state.activeCards.splice(4, 0, this.drawCard())
   }
 
-  onCardClick = (card) => {
-    if (!this.state.clickedCards.includes(card)){
-      card.clicked = true
-      this.state.clickedCards.push(card)
-      this.forceUpdate() //force update to page re-renders b/c we want the borders to re-render once clicked, but we're already setting state below
-      if(this.state.clickedCards.length >= 3){ //checks if set is good then removes cards and draws new set
-        if(this.clickedCardLogic()){
-          this.removeClickedCards() //removes clickedCards from page
-          this.props.onScore()
-        }
-        this.state.clickedCards.forEach(card => card.clicked = false) //doesn't really matter for removedCards, but if choose a set that's not a legit set, this will set all their properties back to unclicked
-        this.setState({clickedCards: []})
-      }
-    } else {
-      const idx = this.state.clickedCards.indexOf(card) //removes card from clickedCards array if you unclick it
-      this.state.clickedCards.splice(idx, 1)
-      card.clicked = false
-      this.forceUpdate()
-    }
+  resetClickedCards = () => {
+    this.state.clickedCards.forEach(card => card.clicked = false) //doesn't really matter for removedCards, but if choose a set that's not a legit set, this will set all their properties back to unclicked
+    this.setState({clickedCards: []})
+  }
 
+  componentDidUpdate = () => {
+    if(!this.props.cardsClickable && this.state.clickedCards.length > 0){
+      this.resetClickedCards()
+    }
+  }
+
+  onCardClick = (card) => {
+    if(this.props.cardsClickable){
+      if (!this.state.clickedCards.includes(card)){
+        card.clicked = true
+        this.state.clickedCards.push(card)
+        this.forceUpdate() //force update to page re-renders b/c we want the borders to re-render once clicked, but we're already setting state below
+        if(this.state.clickedCards.length >= 3){ //checks if set is good then removes cards and draws new set
+          if(this.clickedCardLogic()){
+            this.removeClickedCards() //removes clickedCards from page
+            this.props.onScore()
+          }
+          this.props.finishedSet()
+          this.resetClickedCards()
+        }
+      } else {
+        const idx = this.state.clickedCards.indexOf(card) //removes card from clickedCards array if you unclick it
+        this.state.clickedCards.splice(idx, 1)
+        card.clicked = false
+        this.forceUpdate()
+      }
+    }
   }
 
   hasGoodSet = () => { //checks to make sure there's at least 1 good set in the active cards
-    console.log(this.state.activeCards);
     for(let i=0; i < this.state.activeCards.length-2; i++){
       for(let j=i+1; j < this.state.activeCards.length-1; j++){
         for(let k=j+1; k < this.state.activeCards.length; k++){
@@ -73,7 +84,7 @@ class CardContainer extends Component{
         }
       }
     }
-    console.log(`no good set in ${this.state.activeCards.length}`);
+    alert(`no good set in ${this.state.activeCards.length}`);
     return false //can't return false after initial if b/c it would break out of loop if the 1st 3 cards wasn't a good set.  We need this to return false after it's looped through everything
   }
 
@@ -118,10 +129,6 @@ class CardContainer extends Component{
   componentDidMount = () => {
     this.drawTo12()
     this.gameLogic()
-  }
-
-  componentWillUnmount = () => {
-    console.log("Card Container Unmounting");
   }
 }
 

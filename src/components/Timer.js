@@ -9,7 +9,7 @@ const Timer = (props) => {
 
   return(
     <div>
-      <Button primary onClick={handleClick} content='Start Game'/>
+      {props.showButton ? <Button primary onClick={handleClick} content={props.gameRunning ? 'Pause Game' : 'Start Game'}/> : null}
       <h1>{props.currentTime} second{props.currentTime === 1 ? null : 's'} left!</h1>
     </div>
   )
